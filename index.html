@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/df0c9efe3e.js" crossorigin="anonymous"></script>
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css.css"/>
+
+
+    <title>CMPTT</title>
+</head>
+<body>
+<!--------------------------------- HEADER ------------------------->
+<header >
+    <div class="text-center">
+        <div class="head-color">
+            <img class="logo-cmptt img-fluid" src="img/logo-cmptt.svg">
+            <div class="container text-center" style="padding:20px;">
+                <h1 style="color: #e94b4a">Nous recherchons des stages de développeurs web et mobile !</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<!--------------------------------- Fin HEADER ------------------------->
+<div>
+    <div class="container-fluid text-center">
+        <p class="date">
+            <span class="dateGris">du </span><span class="dateWhite">21 Septembre 2020</span><span class="dateGris">
+                    au </span><span class="dateWhite">02 Octobre 2020</span><br>
+        </p>
+        <p>
+        <p class="date">
+            <span class="dateGris">et du </span><span class="dateWhite">23 Octobre 2020</span><span class="dateGris">
+                    au</span><span class="dateWhite">04 Décembre 2020</span>
+        </p>
+    </div>
+</div>
+
+
+<div id="app" class="container-fluid c-spacer">
+    <div  class="container-fluid">
+        <h1 class="equipe">Notre équipe</h1>
+    </div>
+
+    <!--------------------  Cards apprenants --------------->
+    <div class="container">
+
+
+        <div class="promo">PROMO 2020</div>
+        <div  class="flipcard h" v-for="apprenant in apprenants"  @click="activate(apprenant.id)" :class="{ flip : flipID == apprenant.id }">
+
+            <div class="front styleFront">
+                <div class="div-name">
+                    <h6 class="apprenant-name">{{ apprenant.pw_nom }}<br /><small><b>- {{apprenant.ville }} -</b></small></h6>
+                </div>
+                <video class="videoBG" poster="poster.JPG" autoplay muted loop>
+                    <source :src="apprenant.video" type="video/mp4">
+                </video>
+                <img class="apprenant-avatar"
+                     :src="apprenant.pw_avatar"
+                     :alt="apprenant.alt_pw_avatar">
+            </div>
+            <div class="back styleBack" @click="showMyModal = true"  >
+                <div class="div-name-back">
+                    <h6 class="apprenant-name-back">{{ apprenant.nom }}<br /><small><b>- {{apprenant.ville }} -</b></small></h6>
+                </div>
+                <div class="apprenant-avatar-dos" @click="setCurrentApprenant(apprenant)">
+                    <video class="videoBG" poster="poster.JPG" autoplay muted loop>
+                        <source :src="apprenant.video" type="video/mp4">
+                    </video>
+                        <img class="apprenant-avatar-dos"
+                             :src="apprenant.avatar"
+                             :alt="apprenant.alt_avatar">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--------------------  Cards apprenants --------------->
+
+    <!----------------modal cards verso----------------->
+    <transition name="fade">
+        <div class="modal-overlay" v-if="showMyModal" @click="showMyModal = false"></div>
+    </transition>
+    <transition name="slide" v-for="apprenant in apprenants" :key="apprenant.id">
+        <div class="modal" v-if="showMyModal">
+            <div class="card box-apprenant">
+                <div class="box">
+                    <h2>{{ currentApprenant.nom }}<br><span class="badge badge-primary">{{ currentApprenant.ville }}</span></h2>
+                    <p>{{ currentApprenant.devise }}</p>
+                    <span>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-github-alt" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </span>
+                </div>
+            </div>
+            <button class="button btn btn-danger" @click="showMyModal = false">
+                FERMER
+            </button>
+        </div>
+    </transition>
+</div>
+<!---------------- Fin modal cards verso----------------->
+
+<!---------------------------- FOOTER ------------------------>
+<footer>
+    <div class="row">
+        <!-- Responsable Formation -->
+        <div class="col-md-6">
+            <div>
+                <h2><u>Responsable Formation</u></h2><br/>
+                <p class="foot-padder">Mr. Gérôme Fresse</p>
+                <p><i class="fa fa-phone mr-3"></i> 06 11 67 24 03</p>
+                <a href = "mailto: stages@cmptt.com">stages@cmptt.com</a></p>
+            </div>
+        </div>
+        <!-- Fin Responsable Formation -->
+        <!-- Formulaire contact -->
+        <div class="col-md-6">
+            <form method="post" action="action_page.php">
+                <h2><u>Contact</u></h2><br />
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nom" id="nom" name="nom">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Prénom" id="prenom" name="prenom">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Société" id="societe" name="societe">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Email" id="email" name="email">
+                </div>
+                <div class="form-group">                           <!--changement du placeholder en mymessage-->
+                    <textarea class="form-control" cols="4" rows="4" placeholder="mymessage" id="mymessage" name="mymessage"></textarea>
+                </div>
+                <div class="form-group text-right">
+                    <button type="submit" value="Submit" class="btn btn-rounded btn-primary">Envoyer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Fin formulaire Contact -->
+</footer>
+<!---------------------------- Fin FOOTER ------------------------>
+</body>
+</html>
+
+
+<!---------------------------------------- Scripts Vue.js ----------------------------- -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            apprenants:[
+                {id:"1",nom:"Alan Baudon",pw_nom:"Alan  \"Scaraba\"  Baudon",video:"vid/godzilla_1.mp4",avatar:"img/alan_avatar.png",alt_avatar:"alan_avatar",avatar_r:"img/alan_avatar_r.png",alt_avatar_r:"alan_avatar_r",pw_avatar:"img/alan_pw_avatar.png",alt_pw_avatar:"alan_pw_avatar",ville:"Épinal, Nancy (88-54)",devise:"Qu'il pleuve, qu'il vente ou qu'il neige"},
+                {id:"2",nom:"Yassine Sali",pw_nom: "Yassine  \"Badussa\"  Sali",video:"vid/godzilla_6.mp4",avatar:"img/yassine_avatar.png",alt_avatar:"yassine_avatar",avatar_r:"img/yassine_avatar_r.png",alt_avatar_r:"yassine_avatar_r",pw_avatar:"img/yassine_pw_avatar.png",alt_pw_avatar:"yassine_pw_avatar",ville:"Épinal (88)",devise:"In a perfect world, 666 would be red"},
+                {id:"3",nom:"Julien Szubarga",pw_nom: "Julien  \"Sirjinkor\"  Szubarga",video:"vid/godzilla_5.mp4",avatar:"img/julien_avatar.png",alt_avatar:"julien_avatar",avatar_r:"img/julien_avatar_r.png",alt_avatar_r:"julien_avatar_r",pw_avatar:"img/julien_pw_avatar.png",alt_pw_avatar:"julien_pw_avatar",ville:"Saint-Dié (88)",devise:"Do androïds dream of electric sheeps?"},
+                {id:"4",nom:"Bilgin Ygit",pw_nom: "Bilgin  \"Doomwing\"  Ygit",video:"vid/godzilla_4.mp4",avatar:"img/bilgin_avatar.png",alt_avatar:"bilgin_avatar",avatar_r:"img/bilgin_avatar_r.png",alt_avatar_r:"bilgin_avatar_r",pw_avatar:"img/bilgin_pw_avatar.png",alt_pw_avatar:"bilgin_pw_avatar",ville:"Épinal (88)",devise:"Au travail les amis! Prends un donnut"},
+                {id:"5",nom:"Abdessamad El Mazghy",pw_nom: "Abdessamad  \"Redker\"  El Mazghy",video:"vid/godzilla_3.mp4",avatar:"img/abdess_avatar.png",alt_avatar:"abdess_avatar",avatar_r:"img/abdess_avatar_r.png",alt_avatar_r:"abdess_avatar_r",pw_avatar:"img/abdess_pw_avatar.png",alt_pw_avatar:"abdess_pw_avatar",ville:"Remiremont (88)",devise:"Hello world - Ceci est un texte inutile"},
+                {id:"6",nom:"Alexandre Noiriel",pw_nom: "Alexandre  \"Vrak\"  Noiriel",video:"vid/godzilla_2.mp4",avatar:"img/alex_avatar.png",alt_avatar:"alex_avatar",avatar_r:"img/alex_avatar_r.png",alt_avatar_r:"alex_avatar_r",pw_avatar:"img/alex_pw_avatar.png",alt_pw_avatar:"alex_pw_avatar",ville:"Épinal (88)",devise:"La vie ça n'est que des 0 et des 1"},
+                {id:"7",nom:"Marvin Vasseur",pw_nom: "Marvin  \"Bones\"  Vasseur",video:"vid/godzilla_7.mp4",avatar:"img/marvin_avatar.png",alt_avatar:"marvin_avatar",avatar_r:"img/marvin_avatar_r.png",alt_avatar_r:"marvin_avatar_r",pw_avatar:"img/marvin_pw_avatar.png",alt_pw_avatar:"marvin_pw_avatar",ville:"Épinal (88)",devise:"The only easy day was yesterday"}
+            ],
+            currentApprenant: {},
+            flipID:0,
+            showMyModal: false
+        },
+        methods: {
+            activate:function(id){
+                this.flipID = id;
+            },
+            setCurrentApprenant: function(apprenant) {
+                this.currentApprenant = apprenant;
+            }
+        }
+    })
+</script>
+<!---------------------------------------- Fin scripts Vue.js ----------------------------- -->
